@@ -28,11 +28,14 @@ if (isset($_SESSION['carrito'])) {
 </header>
 
 <main class="main-content">
-    <h1>Carrito de Compras</h1>
+<h1>Carrito de Compras</h1> <br> 
     <?php 
     if (count($carrito) > 0) {
         $total = 0;
-        echo '<table>
+        echo '
+        
+        <div class="table-responsive">
+        <table>
             <thead>
                 <tr>
                     <th>Imagen</th>
@@ -73,7 +76,8 @@ if (isset($_SESSION['carrito'])) {
                             <button type="submit" class="delete-btn">Eliminar</button>
                         </form>
                     </td>
-                </tr>';
+                </tr>
+                </div>';
         }
         
         echo '</tbody>
