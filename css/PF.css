@@ -1,26 +1,10 @@
-/* General Styles */
 body {
   font-family: 'Poppins', Arial, sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: #f5f5f5;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
-}
-
-/* Header and Navigation */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  background-color: #ffffff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  color: #333;
 }
 
 .nav ul {
@@ -33,100 +17,37 @@ body {
 
 .nav ul li a {
   text-decoration: none;
-  color: #333;
+  color: #000; /* Cambiar a negro u otro color oscuro */
   font-weight: 500;
   padding: 5px 10px;
-  transition: color 0.3s ease;
+  transition: background-color 0.3s ease;
+  border-radius: 5px;
 }
+
 
 .nav ul li a:hover {
-  color: #007BFF;
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
-/* Main Content */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  color: black;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap;
+}
+
 .main-content {
   width: 90%;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #ffffff;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-}
-
-/* Tables */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-
-table th,
-table td {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: center;
-}
-
-table th {
-  background-color: #f2f2f2;
-  color: #333;
-}
-
-table td img {
-  max-width: 80px;
-  height: auto;
-  border-radius: 5px;
-}
-
-.product-img {
-  width: 80px;
-  height: auto;
-}
-
-/* Total Row */
-.total-row {
-  font-weight: bold;
-  background-color: #f2f2f2;
-}
-
-/* Actions */
-.actions button {
-  background-color: #ff4d4d;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-.actions button:hover {
-  background-color: #cc0000;
-}
-
-/* Filters */
-.filter-section {
+  margin: 30px auto;
   display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
+  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-.filter-section button {
-  padding: 10px 20px;
-  border: 1px solid #ccc;
-  border-radius: 30px;
-  background-color: #007BFF;
-  color: white;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.filter-section button:hover {
-  background-color: #0056b3;
-}
-
-/* Product Grid */
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -181,19 +102,51 @@ table td img {
   color: #000;
 }
 
-.product-card .product-link {
-  margin-top: 10px;
-  display: block;
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table th,
+table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+table th {
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+table td img {
+  max-width: 80px;
+  height: auto;
+  border-radius: 5px;
+}
+
+.total-row {
+  font-weight: bold;
+  background-color: #f2f2f2;
+}
+
+.nav .logout-btn {
+  display: inline-block;
+  padding: 8px 15px;
+  color: #fff;
+  background-color: #f44336; /* Rojo */
   text-decoration: none;
   font-size: 14px;
-  color: #007BFF;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
 
-.product-card .product-link:hover {
-  color: #0056b3;
+.nav .logout-btn:hover {
+  background-color: #d32f2f; /* Rojo oscuro */
 }
 
-/* Form Styles */
 .form-card {
   background-color: #fff;
   border-radius: 10px;
@@ -210,125 +163,56 @@ table td img {
   font-size: 24px;
 }
 
-.input-group {
-  margin-bottom: 15px;
+
+#formPagar {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.input-group label {
-  display: block;
+#formPagar form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+#formPagar label {
+  font-weight: bold;
   color: #555;
-  font-size: 14px;
-  margin-bottom: 5px;
 }
 
-.input-group input {
-  width: 100%;
+#formPagar input {
   padding: 10px;
-  font-size: 14px;
   border: 1px solid #ddd;
   border-radius: 5px;
+  font-size: 14px;
+  width: 100%;
   box-sizing: border-box;
 }
 
-.input-group input:focus {
-  border-color: #007bff;
+#formPagar input:focus {
+  border-color: #007BFF;
   outline: none;
 }
 
-.btn-submit {
-  width: 100%;
-  padding: 10px;
-  background-color: #007bff;
-  color: white;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.btn-submit:hover {
-  background-color: #0056b3;
-}
-
-/* User Info */
-.user-info-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: calc(100vh - 80px);
-  padding: 20px;
-  background-color: #f5f5f5;
-}
-
-.user-info-card {
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 30px 40px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  max-width: 400px;
-  width: 100%;
-}
-
-.user-info-card h2 {
-  margin-bottom: 20px;
-  font-size: 24px;
-  color: #333;
-}
-
-.user-info-card p {
-  margin-bottom: 10px;
-  font-size: 16px;
-  color: #555;
-}
-
-.user-info-card .btn-back {
-  margin-top: 20px;
-  display: inline-block;
-  padding: 10px 20px;
-  font-size: 16px;
+#formPagar button {
+  padding: 10px 15px;
   background-color: #007BFF;
   color: white;
-  text-decoration: none;
+  border: none;
   border-radius: 5px;
-  transition: background-color 0.3s ease;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.user-info-card .btn-back:hover {
+#formPagar button:hover {
   background-color: #0056b3;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-  .product-grid {
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  }
-
-  .product-card {
-    padding: 15px;
-    min-height: 400px;
-  }
-
-  table {
-    font-size: 14px;
-  }
-
-  table td img {
-    max-width: 60px;
-  }
-}
-
-@media (max-width: 480px) {
-  .product-card {
-    min-height: 350px;
-  }
-
-  .product-card h3 {
-    font-size: 16px;
-  }
-
-  .product-card p {
-    font-size: 14px;
-  }
+  transform: scale(1.05);
 }

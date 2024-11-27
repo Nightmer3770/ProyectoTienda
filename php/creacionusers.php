@@ -8,16 +8,17 @@
     <link rel="stylesheet" href="../css/PF.css">
 </head>
 <body>
-<header class="header">
-    <nav class="nav">
-        <ul>
-            <li><a href="../index.php"> Tienda oficial  </a></li>
-        </ul>
-    </nav>
-    <div class="user-options">
-        <span> <a href="iniciarsesion.php"> 👤 </a> </span>
-    </div>
-</header>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<header class="p-3 bg-dark text-white">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-between">
+                <a href="../index.php"  class="navbar-brand text-white"> Tienda oficial  </a>
+                <div> 
+                <a href="iniciarsesion.php" class='btn btn-warning'> 👤 </a> 
+                </div>
+            </div>
+        </div>
+    </header>
 
     <div class="container mt-5">
         <div class="row justify-content-center">
@@ -35,25 +36,17 @@
                     $fecha_nacimiento = $_POST['FDN'];
                     $tarjeta = $_POST['Tarjeta'];
                     $direccion = $_POST['Dirección'];
-                    $sql = "INSERT INTO usuarios (NombreUser, Correo, Contraseña , FDN , Tarjeta , Dirección)
+                    $sql = "INSERT INTO usuarios (`Nombre del usuario`, `Correo electrónico`, Contraseña , `Fecha de nacimiento` , `Numero de tarjeta bancaria` , `Dirección Postal`)
                             VALUES ('$nombre', '$correo', '$contrasena', '$fecha_nacimiento', '$tarjeta', '$direccion')";
 
                 
                     if ($con->query($sql) === TRUE) {
-                        header("Location: " . $_SERVER['PHP_SELF'] . "?success=1");
+                        header("Location: iniciarsesion.php"); 
                         exit(); 
                     } else {
                         echo "<div class='alert alert-danger'>Error: " . $sql . "<br>" . $con->error . "</div>";
                     }
                 }
-
-                
-                if (isset($_GET['success'])) {
-                    echo "<div class='alert alert-success text-center' role='alert'>
-                            <strong>¡Éxito!</strong> Nuevo registro creado exitosamente.
-                          </div>";
-                }
-
                 $con->close();
                 ?>
 
@@ -90,12 +83,5 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script>
-        if (window.location.search.includes('success=1')) {
-            const url = new URL(window.location);
-            url.searchParams.delete('success'); 
-            window.history.replaceState(null, null, url); 
-        }
-    </script>
 </body>
 </html>

@@ -1,6 +1,11 @@
 <?php
 session_start();
-$carrito = isset($_SESSION['carrito']) ? $_SESSION['carrito'] : [];
+if (isset($_SESSION['carrito'])) {
+    $carrito = $_SESSION['carrito'];
+} else {
+    $carrito = [];
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -10,20 +15,24 @@ $carrito = isset($_SESSION['carrito']) ? $_SESSION['carrito'] : [];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrito de Compras</title>
     <link rel="stylesheet" href="../css/PF.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-<header class="header">
-    <nav class="nav">
-        <ul>
-            <li><a href="../index.php">Tienda oficial</a></li>
-        </ul>
-    </nav>
+<header class="p-3 bg-dark text-white">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-between">
+                <a href="../index.php"  class="navbar-brand text-white"> Tienda oficial  </a>
+            </div>
+        </div>
 </header>
 
 <main class="main-content">
     <h1>Carrito de Compras</h1>
-    <?php if (count($carrito) > 0): ?>
-        <table>
+    <?php 
+    if (count($carrito) > 0) {
+        $total = 0;
+        echo '<table>
             <thead>
                 <tr>
                     <th>Imagen</th>
@@ -34,46 +43,70 @@ $carrito = isset($_SESSION['carrito']) ? $_SESSION['carrito'] : [];
                     <th>Acciones</th>
                 </tr>
             </thead>
-            <tbody>
-                <?php 
-                $total = 0;
-                foreach ($carrito as $index => $producto): 
-                    $subtotal = $producto['precio'] * $producto['cantidad'];
-                    $total += $subtotal;
-                ?>
-                    <tr>
-                        <td>
-                        
-
-                            <?php if (isset($producto['imagen'])): ?>
-                                <img src="data:image/jpeg;base64,<?php echo base64_encode($producto['imagen']); ?>" alt="<?php echo htmlspecialchars($producto['nombre']); ?>" class="product-img">
-                            <?php else: ?>
-                                <img src="../img/placeholder.jpg" alt="Sin imagen" class="product-img">
-                            <?php endif; ?>
-                        </td>
-                        <td><?php echo htmlspecialchars($producto['nombre']); ?></td>
-                        <td><?php echo number_format($producto['precio'], 2); ?> MXN$</td>
-                        <td><?php echo $producto['cantidad']; ?></td>
-                        <td><?php echo number_format($subtotal, 2); ?> MXN$</td>
-                        <td class="actions">
-                            <form action="eliminar_carrito.php" method="POST">
-                                <input type="hidden" name="index" value="<?php echo $index; ?>">
-                                <button type="submit">Eliminar</button>
-                            </form>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
+            <tbody>';
+    
+        foreach ($carrito as $index => $producto) {
+            $subtotal = $producto['precio'] * $producto['cantidad'];
+            $total =$total +$subtotal;
+    
+            if (!empty($producto['imagen'])) {
+                $imagen = "data:image/jpeg;base64," . $producto['imagen'];
+            } else {
+                $imagen = "../img/placeholder.jpg";
+            }
+            
+    
+            echo '<tr>
+                    <td><img src="' . $imagen . '" class="product-img"></td>
+                    <td>' . $producto['nombre'] . '</td>
+                    <td>' . $producto['precio'] . ' MXN$</td>
+                    <td>' . $producto['cantidad'] . '</td>
+                    <td>' . $subtotal . ' MXN$</td>
+                    <td>
+                        <form action="actualizar_carrito.php" method="POST" style="display:inline;">
+                            <input type="hidden" name="index" value="' . $index . '">
+                            <input type="number" name="cantidad" value="' . $producto['cantidad'] . '" min="1" class="cantidad-input">
+                            <button type="submit" class="delete-btn">Actualizar</button>
+                        </form>
+                        <form action="eliminar_carrito.php" method="POST" style="display:inline;">
+                            <input type="hidden" name="index" value="' . $index . '">
+                            <button type="submit" class="delete-btn">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>';
+        }
+        
+        echo '</tbody>
             <tfoot>
                 <tr class="total-row">
                     <td colspan="4">Total</td>
-                    <td colspan="2"><?php echo number_format($total, 2); ?> MXN$</td>
+                    <td colspan="2">' . $total . ' MXN$</td>
                 </tr>
             </tfoot>
-        </table>
-    <?php else: ?>
-        <p>No hay productos en el carrito.</p>
-    <?php endif; ?>
+        </table>';
+        echo '<div id="formPagar">
+            <div class="alert alert-success"> El ID se encuentra en la pagina de Mi perfil </div>
+            <form action="procesar_pago.php" method="POST">
+                <label for="id_usuario">ID Usuario:</label>
+                <input type="text" name="id_usuario" id="id_usuario" placeholder="Ingresa tu ID de usuario" required>
+    
+                <label for="nombre">Nombre:</label>
+                <input type="text" name="nombre" id="nombre" placeholder="Ingresa tu nombre completo" required>
+    
+                <label for="tarjeta">Número de tarjeta:</label>
+                <input type="text" name="tarjeta" id="tarjeta" placeholder="16 dígitos de tu tarjeta" maxlength="16" required>
+    
+                <label for="correo">Correo:</label>
+                <input type="email" name="correo" id="correo" placeholder="Ingresa tu correo electrónico" required>
+    
+                <button type="submit" class="delete-btn">Finalizar compra</button>
+            </form>
+        </div>';
+    } else {
+        echo ' <br> <br> <h1> (No hay productos en el carrito)</h1>';
+    }    
+    ?>
 </main>
+
 </body>
 </html>
