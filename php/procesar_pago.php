@@ -10,7 +10,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nombre = $_POST['nombre'];
     $tarjeta = $_POST['tarjeta'];
     $correo = $_POST['correo'];
-    $carrito = isset($_SESSION['carrito']) ? $_SESSION['carrito'] : [];
+    if (isset($_SESSION['carrito'])) {
+        $carrito = $_SESSION['carrito'];
+    } else {
+        $carrito = [];
+    }
 
     if (count($carrito) > 0) {
         foreach ($carrito as $producto) {
